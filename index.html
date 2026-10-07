@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Better Every Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b1020;--bg2:#121935;--card:#161d3d;--line:#263059;--text:#f1f4ff;--mute:#98a2c8;--acc:#7c8cff;--acc2:#a273ff;--ok:#2fd18b;--okbg:rgba(47,209,139,.13);--fire:#ffb454;--r:16px}
+[data-theme=light]{--bg:#f4f6fc;--bg2:#e9edfb;--card:#fff;--line:#dbe0f3;--text:#141a3a;--mute:#5f6a94;--acc:#4f5fe8;--acc2:#8a52e6;--ok:#14a86b;--okbg:rgba(20,168,107,.11);--fire:#e8892a}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,system-ui,sans-serif;background:radial-gradient(1200px 500px at 80% -10%,var(--bg2),var(--bg));background-attachment:fixed;color:var(--text);min-height:100vh;transition:background .4s,color .4s}
+h1,h2,h3,.big{font-family:Poppins,Inter,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+input{font:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px 40px}
+nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:8px;padding:12px 18px;flex-wrap:wrap}
+.logo{font-family:Poppins;font-weight:700;font-size:18px;margin-right:auto;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tab,.ghost{background:none;border:1px solid transparent;padding:7px 12px;border-radius:10px;color:var(--mute);font-weight:500;font-size:14px;transition:.2s}
+.tab:hover,.ghost:hover{color:var(--text);border-color:var(--line)}
+.tab.on{color:var(--text);background:var(--card);border-color:var(--line)}
+.btn{background:linear-gradient(135deg,var(--acc),var(--acc2));border:0;color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;width:100%;transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px -8px var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.view{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero{padding:28px 0 18px}
+.hero small{color:var(--mute)}
+.hero h1{font-size:clamp(26px,5vw,38px);margin:4px 0 6px}
+.quote{color:var(--mute);font-style:italic}
+.grid{display:grid;gap:14px}
+.top{grid-template-columns:1.4fr 1fr 1fr}
+@media(max-width:720px){.top{grid-template-columns:1fr}}
+.big{font-size:44px;font-weight:700;line-height:1}
+.lbl{color:var(--mute);font-size:13px;margin-top:6px}
+.bar{height:10px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--ok));border-radius:99px;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.fire{color:var(--fire)}
+.tasks{margin-top:18px;grid-template-columns:repeat(2,1fr)}
+@media(max-width:720px){.tasks{grid-template-columns:1fr}}
+.task{display:flex;align-items:center;gap:14px;padding:16px;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r);transition:.25s}
+.task:hover{transform:translateY(-2px);border-color:var(--acc)}
+.task .ic{font-size:22px;width:44px;height:44px;display:grid;place-items:center;background:var(--bg2);border-radius:12px;flex:none}
+.task .t{flex:1;font-weight:500}.task .n{color:var(--mute);font-size:12px}
+.chk{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none;transition:.25s}
+.chk svg{width:16px;stroke:#fff;stroke-width:3;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .35s .05s}
+.task.done{background:var(--okbg);border-color:var(--ok)}
+.task.done .chk{background:var(--ok);border-color:var(--ok);animation:pop .35s}
+.task.done .chk svg{stroke-dashoffset:0}
+.task.done .t{text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--ok) 60%,transparent)}
+.task:disabled{cursor:default}
+@keyframes pop{50%{transform:scale(1.25)}}
+.dnav{display:flex;align-items:center;gap:8px;margin:6px 0 14px}
+.dnav input{background:var(--card);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:10px}
+.note{background:var(--bg2);padding:10px 14px;border-radius:12px;color:var(--mute);font-size:14px;margin-bottom:14px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.cal b{font-size:12px;color:var(--mute);font-weight:500}
+.cd{aspect-ratio:1;border-radius:10px;border:1px solid var(--line);background:var(--bg2);display:grid;place-items:center;font-size:13px;position:relative;transition:.2s}
+.cd:hover{border-color:var(--acc)}
+.cd.sel{outline:2px solid var(--acc)}
+.cd.full{background:var(--okbg);border-color:var(--ok)}
+.cd.part{background:rgba(255,190,70,.14);border-color:var(--fire)}
+.cd.fut{opacity:.35;pointer-events:none}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:13px;margin-top:14px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--line)}
+.legend .g::before{background:var(--ok)}.legend .y::before{background:var(--fire)}
+.two{grid-template-columns:1.2fr 1fr}
+@media(max-width:720px){.two{grid-template-columns:1fr}}
+ul.l{list-style:none;padding:0;display:grid;gap:8px;margin-top:10px;font-size:14px}
+ul.l li::before{content:"✓ ";color:var(--ok)}ul.l li.no::before{content:"○ ";color:var(--mute)}ul.l li.no{color:var(--mute)}
+.s4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:720px){.s4{grid-template-columns:repeat(2,1fr)}}
+.chart{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:14px}
+.chart div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px;font-size:11px;color:var(--mute)}
+.chart i{width:100%;max-width:38px;border-radius:8px 8px 3px 3px;background:linear-gradient(var(--acc2),var(--acc));min-height:3px;transition:height .7s}
+.auth{max-width:380px;margin:9vh auto 0}
+.auth h1{font-size:30px}.auth p{color:var(--mute);margin:6px 0 20px}
+.auth input{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:12px;border-radius:12px;margin-bottom:12px}
+.auth input:focus{outline:2px solid var(--acc);border-color:transparent}
+.err{color:#ff6b7a;font-size:14px;min-height:20px;margin-bottom:8px}
+.sw{text-align:center;margin-top:14px;color:var(--mute);font-size:14px}
+.sw a{color:var(--acc);cursor:pointer;font-weight:600}
+.empty{text-align:center;color:var(--mute);padding:26px 10px}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:30px 0 0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TASKS=[["📵","Limit your screen time."],["💡","Learn something new."],["📖","Read for 10 minutes."],["🗣️","Practice speaking English."],["🔤","Learn 5 new words."],["👂","Listen carefully when others speak."],["🤝","Speak politely with everyone."],["🧹","Keep your surroundings clean."],["🏃","Exercise for 30 minutes."],["🌙","Reflect on your day before sleeping."]];
+const QUOTES=["Small progress is still progress.","Build better habits, one day at a time.","Your daily actions shape your future.","Learn something. Do something. Improve something."];
+const $=s=>document.querySelector(s);
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const iso=d=>{const x=new Date(d);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
+const today=()=>iso(new Date());
+const addDays=(s,n)=>{const d=new Date(s+"T12:00:00");d.setDate(d.getDate()+n);return iso(d)};
+const fmt=(s,o)=>new Date(s+"T12:00:00").toLocaleDateString("en-US",o||{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+async function hash(p){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("bed:"+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch{return btoa(p)}}
+
+let S={user:load("bed_session",null),view:"dashboard",theme:load("bed_theme","dark"),date:today(),calMonth:today().slice(0,7),authMode:"login",err:""};
+const users=()=>load("bed_users",{});
+const dataKey=()=>"bed_data_"+S.user;
+const data=()=>load(dataKey(),{});            // {date:[bool x10]}
+const day=(d,all=data())=>all[d]||Array(10).fill(false);
+const cnt=a=>a.filter(Boolean).length;
+
+function stats(){
+  const all=data(),dates=Object.keys(all).filter(d=>cnt(all[d])>0).sort();
+  const full=new Set(Object.keys(all).filter(d=>cnt(all[d])===10));
+  let longest=0,run=0,prev=null;
+  [...full].sort().forEach(d=>{run=prev&&addDays(prev,1)===d?run+1:1;longest=Math.max(longest,run);prev=d});
+  let cur=0,c=full.has(today())?today():addDays(today(),-1);
+  while(full.has(c)){cur++;c=addDays(c,-1)}
+  const total=dates.reduce((s,d)=>s+cnt(all[d]),0);
+  const range=n=>Array.from({length:n},(_,i)=>{const d=addDays(today(),i-n+1);return{d,p:cnt(day(d,all))*10}});
+  const avg=r=>Math.round(r.reduce((s,x)=>s+x.p,0)/r.length);
+  return{cur,longest,total,active:dates.length,week:range(7),month:range(30),wavg:avg(range(7)),mavg:avg(range(30))};
+}
+
+function applyTheme(){document.documentElement.dataset.theme=S.theme}
+function toggle(i){
+  if(S.date>today())return;
+  const all=data(),a=[...day(S.date,all)];a[i]=!a[i];all[S.date]=a;save(dataKey(),all);render(true);
+}
+async function submitAuth(e){
+  e.preventDefault();
+  const u=$("#u").value.trim(),p=$("#p").value,u2=users();
+  if(S.authMode==="register"){
+    if(u.length<3)return setErr("Username must be at least 3 characters.");
+    if(!/^[A-Za-z0-9_]+$/.test(u))return setErr("Use letters, numbers and underscores only.");
+    if(p.length<6)return setErr("Password must be at least 6 characters.");
+    if(p!==$("#p2").value)return setErr("Passwords don't match.");
+    if(u2[u.toLowerCase()])return setErr("That username is taken. Pick another.");
+    u2[u.toLowerCase()]={name:u,h:await hash(p)};save("bed_users",u2);
+  }else{
+    const r=u2[u.toLowerCase()];
+    if(!u||!p)return setErr("Enter your username and password.");
+    if(!r||r.h!==await hash(p))return setErr("Username or password is incorrect.");
+  }
+  S.user=u.toLowerCase();save("bed_session",S.user);S.date=today();S.view="dashboard";S.err="";render();
+}
+function setErr(m){S.err=m;$("#err").textContent=m}
+function logout(){S.user=null;save("bed_session",null);render()}
+
+const check='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function taskList(a,locked){
+  return `<div class="grid tasks">${TASKS.map((t,i)=>`<button class="task ${a[i]?"done":""}" ${locked?"disabled":""} onclick="toggle(${i})" aria-pressed="${a[i]}"><span class="ic">${t[0]}</span><span class="t"><span class="n">Task ${i+1}</span><br>${t[1]}</span><span class="chk">${check}</span></button>`).join("")}</div>`;
+}
+function dashboard(){
+  const st=stats(),a=day(S.date),c=cnt(a),isToday=S.date===today(),name=users()[S.user]?.name||S.user;
+  const q=QUOTES[Math.floor(new Date().setHours(0,0,0,0)/864e5)%QUOTES.length];
+  return `<div class="view"><div class="hero"><small>${fmt(today())}</small><h1>${new Date().getHours()<12?"Good morning":new Date().getHours()<18?"Good afternoon":"Good evening"}, ${name}</h1><p class="quote">“${q}”</p></div>
+  <div class="dnav"><button class="ghost" onclick="S.date=addDays(S.date,-1);render()">‹ Prev</button><input type="date" max="${today()}" value="${S.date}" onchange="if(this.value){S.date=this.value;render()}" aria-label="Choose date"><button class="ghost" ${isToday?"disabled":""} onclick="S.date=addDays(S.date,1);render()">Next ›</button>${isToday?"":`<button class="ghost" onclick="S.date=today();render()">Today</button>`}</div>
+  ${isToday?"":`<div class="note">Viewing ${fmt(S.date)}. You can edit past days.</div>`}
+  <div class="grid top">
+   <div class="card"><div class="lbl" style="margin:0 0 8px">${isToday?"Today's progress":fmt(S.date,{month:"short",day:"numeric"})+" progress"}</div><div class="big">${c} / 10</div><div class="lbl">${c*10}% completed</div><div class="bar"><i id="bar" style="width:0" data-w="${c*10}"></i></div></div>
+   <div class="card"><div class="big fire">🔥 ${st.cur}</div><div class="lbl">Current streak (days)</div></div>
+   <div class="card"><div class="big">${st.total}</div><div class="lbl">Total activities completed</div></div>
+  </div>${taskList(a,false)}</div>`;
+}
+function history(){
+  const [y,m]=S.calMonth.split("-").map(Number),first=new Date(y,m-1,1).getDay(),dim=new Date(y,m,0).getDate(),all=data();
+  let cells=["S","M","T","W","T","F","S"].map(x=>`<b>${x}</b>`).join("")+"<span></span>".repeat(first);
+  for(let d=1;d<=dim;d++){const s=`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`,n=cnt(day(s,all));
+    cells+=`<button class="cd ${n===10?"full":n>0?"part":""} ${s>today()?"fut":""} ${s===S.date?"sel":""}" onclick="S.date='${s}';render()">${d}</button>`}
+  const a=day(S.date,all),c=cnt(a);
+  return `<div class="view"><div class="hero"><h1>History</h1><p class="quote">Pick a date to review how it went.</p></div>
+  <div class="grid two"><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><button class="ghost" onclick="shiftMonth(-1)">‹</button><h3>${new Date(y,m-1).toLocaleDateString("en-US",{month:"long",year:"numeric"})}</h3><button class="ghost" onclick="shiftMonth(1)">›</button></div><div class="cal">${cells}</div>
+  <div class="legend"><span class="g">Fully completed</span><span class="y">Partially completed</span><span>No activity</span></div></div>
+  <div class="card"><h3>${fmt(S.date,{weekday:"short",month:"long",day:"numeric",year:"numeric"})}</h3>
+  ${c===0&&!Object.keys(all).includes(S.date)?`<div class="empty">No activity recorded for this day.</div>`:""}
+  <div class="big" style="margin-top:14px">${c*10}%</div><div class="lbl">Score ${c} / 10</div>
+  <ul class="l">${TASKS.map((t,i)=>`<li class="${a[i]?"":"no"}">${t[1]}</li>`).join("")}</ul>
+  ${S.date<=today()?`<button class="btn" style="margin-top:16px" onclick="S.view='dashboard';render()">Edit this day</button>`:""}</div></div></div>`;
+}
+function shiftMonth(n){const [y,m]=S.calMonth.split("-").map(Number);const d=new Date(y,m-1+n,1);S.calMonth=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");render()}
+function statsView(){
+  const st=stats(),c=cnt(day(today()));
+  const bars=(r,lab)=>`<div class="chart">${r.map(x=>`<div title="${x.d}: ${x.p}%"><i style="height:0" data-h="${x.p}%"></i><span>${lab(x.d)}</span></div>`).join("")}</div>`;
+  return `<div class="view"><div class="hero"><h1>Statistics</h1><p class="quote">Your habits, in numbers.</p></div>
+  <div class="grid s4">
+   <div class="card"><div class="big">${c*10}%</div><div class="lbl">Today</div></div>
+   <div class="card"><div class="big">${st.wavg}%</div><div class="lbl">7-day average</div></div>
+   <div class="card"><div class="big">${st.mavg}%</div><div class="lbl">30-day average</div></div>
+   <div class="card"><div class="big">${st.active}</div><div class="lbl">Active days</div></div>
+   <div class="card"><div class="big fire">🔥 ${st.cur}</div><div class="lbl">Current streak</div></div>
+   <div class="card"><div class="big">🏆 ${st.longest}</div><div class="lbl">Longest streak</div></div>
+   <div class="card" style="grid-column:span 2"><div class="big">${st.total}</div><div class="lbl">Total completed activities</div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>This week</h3>${bars(st.week,d=>fmt(d,{weekday:"short"}))}</div>
+  <div class="card" style="margin-top:14px"><h3>Last 30 days</h3>${bars(st.month,d=>+d.slice(8))}</div></div>`;
+}
+function authView(){
+  const reg=S.authMode==="register";
+  return `<div class="wrap"><div class="auth card view"><h1 class="logo" style="font-size:30px">Better Every Day</h1><p>Small habits. Better days. Better you.</p>
+  <form onsubmit="submitAuth(event)"><input id="u" placeholder="Username" autocomplete="username" required><input id="p" type="password" placeholder="Password" autocomplete="${reg?"new-password":"current-password"}" required>
+  ${reg?`<input id="p2" type="password" placeholder="Confirm password" autocomplete="new-password" required>`:""}
+  <div class="err" id="err">${S.err}</div><button class="btn">${reg?"Create account":"Log in"}</button></form>
+  <div class="sw">${reg?"Already have an account?":"New here?"} <a onclick="S.authMode='${reg?"login":"register"}';S.err='';render()">${reg?"Log in":"Create an account"}</a></div></div></div>`;
+}
+function render(animate){
+  applyTheme();
+  const app=$("#app");
+  if(!S.user||!users()[S.user]){S.user=null;app.innerHTML=authView();return}
+  const tabs=[["dashboard","Today"],["history","History"],["stats","Statistics"]];
+  app.innerHTML=`<nav><div class="wrap"><span class="logo">Better Every Day</span>${tabs.map(t=>`<button class="tab ${S.view===t[0]?"on":""}" onclick="S.view='${t[0]}';render()">${t[1]}</button>`).join("")}<button class="ghost" onclick="S.theme=S.theme==='dark'?'light':'dark';save('bed_theme',S.theme);render()" aria-label="Toggle theme">${S.theme==="dark"?"☀️":"🌙"}</button><button class="ghost" onclick="logout()">Log out</button></div></nav>
+  <div class="wrap">${S.view==="dashboard"?dashboard():S.view==="history"?history():statsView()}<footer>Small habits. Better days. Better you.</footer></div>`;
+  if(animate)document.querySelectorAll(".view").forEach(v=>v.style.animation="none");
+  requestAnimationFrame(()=>{
+    const b=$("#bar");if(b)b.style.width=b.dataset.w+"%";
+    document.querySelectorAll("[data-h]").forEach(e=>e.style.height=e.dataset.h);
+  });
+}
+render();
+</script>
+</body>
+</html>
